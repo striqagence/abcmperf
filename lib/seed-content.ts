@@ -160,7 +160,10 @@ export async function runContentSeed({ payload, log = () => {}, skipMedia = fals
         // admin cohérent). Payload les respecte à la création.
         createdAt: raw.date || undefined,
         updatedAt: raw.modified || raw.date || undefined,
-        _status: 'published',
+        // Un article marqué `"status": "draft"` dans son fichier est importé en
+        // BROUILLON (invisible du site public tant qu'il n'est pas publié dans
+        // l'admin) ; sinon publié comme le reste du contenu historique.
+        _status: raw.status === 'draft' ? 'draft' : 'published',
       })
       aOk++
     } catch (e: any) {
