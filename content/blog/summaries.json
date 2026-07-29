@@ -515,5 +515,69 @@
     "L'IA gratuite (rédaction, design, montage, automatisation) est le vrai game changer 2026.",
     "Réseaux sociaux, e-mailing et micro-influence complètent l'arsenal à moindre coût.",
     "Priorisez : d'abord SEO et contenu, puis réseaux et IA, puis publicité ciblée."
+  ],
+  "onboarding-tpe-pme": [
+    "L'onboarding commence à la signature du contrat, pas le premier matin. Et il se termine quand la personne est vraiment autonome, soit trois à six mois plus tard.",
+    "Une intégration structurée change tout : les études évoquent jusqu'à 82 % de rétention en plus chez les nouvelles recrues et 70 % de productivité supplémentaire.",
+    "Pas de service RH ? C'est un atout, pas un handicap. La proximité d'une petite structure vaut mieux qu'une procédure impersonnelle.",
+    "Le parcours tient en cinq temps : avant l'arrivée, le premier jour, la première semaine, le premier mois, puis le suivi jusqu'à six mois.",
+    "Trois réflexes suffisent à éviter la catastrophe : préparer le poste de travail avant l'arrivée, désigner un parrain, et faire un point court mais régulier.",
+    "Un onboarding soigné se raconte. C'est votre meilleure publicité pour recruter les suivants."
+  ],
+  "quality-score-google-ads": [
+    "Le Quality Score est une note de 1 à 10 que Google attribue à chacun de vos mots-clés. Elle mesure à quel point votre publicité mérite d'être montrée.",
+    "Elle repose sur trois ingrédients : le taux de clics attendu, la pertinence de l'annonce et l'expérience sur la page de destination.",
+    "Son impact est direct sur votre portefeuille. Google calcule votre position avec votre enchère ET votre score, donc un bon score permet de passer devant un concurrent qui paie plus cher que vous.",
+    "En dessous de 5, votre coût par clic grimpe. Au-dessus de 7, vous êtes en terrain confortable.",
+    "Le score se trouve en ajoutant quelques colonnes dans votre tableau de mots-clés. Deux minutes de manipulation.",
+    "Le levier numéro un, c'est la cohérence : le mot-clé, l'annonce et la page d'arrivée doivent raconter exactement la même chose."
+  ],
+  "rediger-fiche-produit": [
+    "Une fiche produit doit faire trois choses en même temps : être trouvée sur Google, donner envie d'acheter, et rassurer avant le paiement.",
+    "La faute la plus répandue, c'est de coller la description du fournisseur. Elle est identique sur cinquante boutiques, donc Google n'a aucune raison de choisir la vôtre.",
+    "Personne n'achète une caractéristique technique. On achète ce qu'elle change dans notre vie. Traduisez systématiquement.",
+    "Les questions sans réponse font fuir : taille, compatibilité, délai, retour. Chaque objection non traitée est un panier abandonné.",
+    "Sur mobile, l'essentiel doit tenir avant le premier défilement. C'est là que se joue la majorité des ventes.",
+    "Un catalogue entier ne se réécrit pas d'un coup. On commence par les fiches qui rapportent, pas par la lettre A."
+  ],
+  "refonte-site-sans-perdre-referencement": [
+    "Le vrai danger d'une refonte, ce n'est pas le design. C'est le changement d'URL sans redirection : c'est là que le trafic s'effondre.",
+    "Avant de toucher au site, on audite l'existant. Quelles pages rankent, sur quelles requêtes, quels liens pointent vers vous : on sait exactement ce qu'on doit protéger.",
+    "Le plan de redirections 301 est la pièce maîtresse. Chaque ancienne adresse pointe vers sa nouvelle version, et ça se prépare avant la mise en ligne, jamais le jour J dans la précipitation.",
+    "On garde le contenu qui performe. On l'améliore, on ne le jette pas pour repartir de zéro.",
+    "Tout se teste sur une préproduction, puis on bascule avec une checklist stricte. Un simple noindex oublié a déjà déréférencé des sites entiers en quelques jours.",
+    "Comptez 2 à 4 semaines pour que Google recrawle votre nouveau site et que les positions se stabilisent."
+  ],
+  "prix-creation-site-internet": [
+    "Il n'existe pas UN prix. Un site peut coûter 800 € comme 40 000 €, et les deux tarifs peuvent être justifiés : ce ne sont pas les mêmes produits.",
+    "Les fourchettes 2026 sur le marché français : one-page 500 à 2 500 €, site vitrine 2 000 à 8 000 €, e-commerce 3 000 à 30 000 € et plus, sur-mesure au-delà de 15 000 €.",
+    "Ce qui fait vraiment la facture, ce n'est pas le nombre de pages. C'est le design sur mesure ou non, la rédaction des contenus, le SEO technique et l'expérience de l'équipe.",
+    "N'oubliez pas les coûts récurrents : nom de domaine, hébergement, maintenance. Un site est un abonnement autant qu'un achat.",
+    "Le vrai coût se lit sur 5 ans. Un site pas cher mais mal fait revient souvent plus cher qu'un site correctement investi dès le départ.",
+    "Trois devis très différents pour un projet qui se ressemble ? Normal. On vous explique comment les comparer sans vous faire avoir."
+  ],
+  "core-web-vitals": [
+    "Les Core Web Vitals sont trois mesures de Google qui évaluent ce que vit vraiment un visiteur sur votre site : la vitesse d'affichage (LCP), la réactivité au clic (INP) et la stabilité visuelle (CLS).",
+    "Les objectifs à retenir : LCP sous 2,5 secondes, INP sous 200 millisecondes, CLS sous 0,1.",
+    "Attention, l'INP a remplacé l'ancien indicateur FID en mars 2024. Tout guide qui parle encore de FID est périmé.",
+    "Google ne vous note pas sur un test de laboratoire, mais sur les données de vos vrais visiteurs Chrome, sur 28 jours glissants. D'où l'écart fréquent entre un bon score PageSpeed et une alerte dans la Search Console.",
+    "C'est bien un critère de classement, mais il départage deux pages de qualité comparable. Il ne compense jamais un contenu faible.",
+    "Le vrai gain est commercial : un site rapide et stable garde ses visiteurs et convertit mieux. Les cas documentés parlent de plusieurs points de ventes en plus."
+  ],
+  "fichier-llms-txt": [
+    "Le llms.txt est un petit fichier texte, placé à la racine de votre site, qui donne aux IA une version propre et hiérarchisée de vos contenus. Un guide, pas un cadenas.",
+    "Il n'a rien à voir avec le robots.txt. Le robots.txt dit « n'entrez pas ici ». Le llms.txt dit « voici mon meilleur contenu, servez-vous ».",
+    "La vérité qui dérange : à l'heure où on écrit ces lignes, aucun grand moteur IA ne s'en sert vraiment. Google a dit non, noir sur blanc, et il n'a aucun impact sur votre référencement.",
+    "Il ne vous fera pas citer par ChatGPT. Ça, c'est le travail GEO (contenu structuré, entités cohérentes, présence sur des sources tierces).",
+    "Son vrai terrain de jeu, c'est le web agentique : les agents IA, les assistants de code comme Cursor ou Claude Code, le commerce par agent. Anthropic et OpenAI le recommandent dans ce cadre précis.",
+    "Le créer prend 30 minutes. À poser si vous éditez de la doc, un SaaS ou un site avec un vrai usage « agent ». Sinon, votre temps vaut mieux ailleurs."
+  ],
+  "employee-advocacy": [
+    "L'employee advocacy, c'est quand vos collaborateurs parlent de votre entreprise sur leurs propres réseaux, avec leurs mots.",
+    "Ça fonctionne pour une raison simple : on croit davantage une personne qu'un logo. Un témoignage de salarié porte plus loin qu'un message institutionnel.",
+    "Ce n'est pas du personal branding. L'un sert la carrière d'un individu, l'autre sert la visibilité de l'entreprise. Les deux se nourrissent, mais ne se confondent pas.",
+    "Les bénéfices vont bien au-delà de la notoriété : recrutement facilité, cycle commercial raccourci, équipes plus impliquées.",
+    "Le seul vrai carburant, c'est le volontariat. Un programme imposé produit des publications tièdes que personne ne lit.",
+    "Le blocage numéro un n'est pas la mauvaise volonté, c'est « je ne sais pas quoi publier ». Réglez ça, et le reste suit."
   ]
 }
