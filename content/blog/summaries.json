@@ -555,5 +555,29 @@
     "N'oubliez pas les coûts récurrents : nom de domaine, hébergement, maintenance. Un site est un abonnement autant qu'un achat.",
     "Le vrai coût se lit sur 5 ans. Un site pas cher mais mal fait revient souvent plus cher qu'un site correctement investi dès le départ.",
     "Trois devis très différents pour un projet qui se ressemble ? Normal. On vous explique comment les comparer sans vous faire avoir."
+  ],
+  "core-web-vitals": [
+    "Les Core Web Vitals sont trois mesures de Google qui évaluent ce que vit vraiment un visiteur sur votre site : la vitesse d'affichage (LCP), la réactivité au clic (INP) et la stabilité visuelle (CLS).",
+    "Les objectifs à retenir : LCP sous 2,5 secondes, INP sous 200 millisecondes, CLS sous 0,1.",
+    "Attention, l'INP a remplacé l'ancien indicateur FID en mars 2024. Tout guide qui parle encore de FID est périmé.",
+    "Google ne vous note pas sur un test de laboratoire, mais sur les données de vos vrais visiteurs Chrome, sur 28 jours glissants. D'où l'écart fréquent entre un bon score PageSpeed et une alerte dans la Search Console.",
+    "C'est bien un critère de classement, mais il départage deux pages de qualité comparable. Il ne compense jamais un contenu faible.",
+    "Le vrai gain est commercial : un site rapide et stable garde ses visiteurs et convertit mieux. Les cas documentés parlent de plusieurs points de ventes en plus."
+  ],
+  "fichier-llms-txt": [
+    "Le llms.txt est un petit fichier texte, placé à la racine de votre site, qui donne aux IA une version propre et hiérarchisée de vos contenus. Un guide, pas un cadenas.",
+    "Il n'a rien à voir avec le robots.txt. Le robots.txt dit « n'entrez pas ici ». Le llms.txt dit « voici mon meilleur contenu, servez-vous ».",
+    "La vérité qui dérange : à l'heure où on écrit ces lignes, aucun grand moteur IA ne s'en sert vraiment. Google a dit non, noir sur blanc, et il n'a aucun impact sur votre référencement.",
+    "Il ne vous fera pas citer par ChatGPT. Ça, c'est le travail GEO (contenu structuré, entités cohérentes, présence sur des sources tierces).",
+    "Son vrai terrain de jeu, c'est le web agentique : les agents IA, les assistants de code comme Cursor ou Claude Code, le commerce par agent. Anthropic et OpenAI le recommandent dans ce cadre précis.",
+    "Le créer prend 30 minutes. À poser si vous éditez de la doc, un SaaS ou un site avec un vrai usage « agent ». Sinon, votre temps vaut mieux ailleurs."
+  ],
+  "employee-advocacy": [
+    "L'employee advocacy, c'est quand vos collaborateurs parlent de votre entreprise sur leurs propres réseaux, avec leurs mots.",
+    "Ça fonctionne pour une raison simple : on croit davantage une personne qu'un logo. Un témoignage de salarié porte plus loin qu'un message institutionnel.",
+    "Ce n'est pas du personal branding. L'un sert la carrière d'un individu, l'autre sert la visibilité de l'entreprise. Les deux se nourrissent, mais ne se confondent pas.",
+    "Les bénéfices vont bien au-delà de la notoriété : recrutement facilité, cycle commercial raccourci, équipes plus impliquées.",
+    "Le seul vrai carburant, c'est le volontariat. Un programme imposé produit des publications tièdes que personne ne lit.",
+    "Le blocage numéro un n'est pas la mauvaise volonté, c'est « je ne sais pas quoi publier ». Réglez ça, et le reste suit."
   ]
 }
