@@ -13,6 +13,8 @@ import { homeJsonLd } from "@/lib/site-jsonld";
 
 export const metadata = {
   alternates: { canonical: "/" },
+  // Vérification Search Console (rend <meta name="google-site-verification" ...>).
+  verification: { google: "xnVh_3QP7RWakJkMA54p1op9QZrfpH0yMg5_4SpC7j4" },
 };
 
 // ISR : la home est régénérée à la publication / suppression d'un article
