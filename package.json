@@ -17,6 +17,7 @@
     "seed:admin": "payload run scripts/seed-admin.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.122.0",
     "@payloadcms/db-postgres": "^3.85.2",
     "@payloadcms/db-sqlite": "^3.85.2",
     "@payloadcms/next": "^3.85.2",

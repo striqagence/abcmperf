@@ -4,6 +4,7 @@ import "./site.css";
 import "./serviceviz.css";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { ChatWidget } from "@/components/site/ChatWidget";
 
 export const metadata = {
   metadataBase: new URL("https://abcmperformances.com"),
@@ -63,6 +64,7 @@ export default function RootLayout({ children }) {
         <Header />
         <main>{children}</main>
         <Footer />
+        <ChatWidget />
       </body>
     </html>
   );
