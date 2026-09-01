@@ -72,8 +72,11 @@ export async function POST(req) {
   try {
     anthropicStream = await client.messages.create(params);
   } catch (err) {
-    const status = err?.status === 401 ? 401 : 502;
-    return json({ error: "upstream", status }, status);
+    // Remonte la cause réelle (statut + message Anthropic) pour diagnostic.
+    const upstreamStatus = typeof err?.status === "number" ? err.status : null;
+    const detail = (err?.error?.error?.message || err?.message || "").slice(0, 300);
+    console.error("[chat] upstream error", upstreamStatus, MODEL, detail);
+    return json({ error: "upstream", model: MODEL, status: upstreamStatus, detail }, 502);
   }
 
   const encoder = new TextEncoder();
