@@ -72,11 +72,12 @@ export async function POST(req) {
   try {
     anthropicStream = await client.messages.create(params);
   } catch (err) {
-    // Remonte la cause réelle (statut + message Anthropic) pour diagnostic.
+    // Cause réelle journalisée côté serveur (logs Vercel), sans l'exposer au
+    // client. Ex. fréquents : 401 (clé invalide), 400 « credit balance too low ».
     const upstreamStatus = typeof err?.status === "number" ? err.status : null;
     const detail = (err?.error?.error?.message || err?.message || "").slice(0, 300);
     console.error("[chat] upstream error", upstreamStatus, MODEL, detail);
-    return json({ error: "upstream", model: MODEL, status: upstreamStatus, detail }, 502);
+    return json({ error: "upstream" }, 502);
   }
 
   const encoder = new TextEncoder();
