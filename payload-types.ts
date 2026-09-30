@@ -285,6 +285,27 @@ export interface Article {
     [k: string]: unknown;
   } | null;
   /**
+   * Définit le « @type » des données structurées. Laisser « Article de blog » dans la plupart des cas.
+   */
+  schemaType?: ('BlogPosting' | 'Article' | 'NewsArticle') | null;
+  /**
+   * Mots-clés séparés par des virgules (ex. « SEO, IA, référencement »). Ajoutés aux données structurées. Optionnel.
+   */
+  keywords?: string | null;
+  /**
+   * Questions/réponses affichées en bas d’article ET envoyées à Google en données structurées (FAQPage), pour un affichage enrichi dans les résultats de recherche. Laisser vide si l’article n’a pas de FAQ.
+   */
+  faq?:
+    | {
+        question: string;
+        /**
+         * Réponse en texte simple (les données structurées n’acceptent pas la mise en forme).
+         */
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
    * HTML historique conservé pour fidélité de rendu et repli.
    */
   legacyHtml?: string | null;
@@ -717,6 +738,15 @@ export interface ArticlesSelect<T extends boolean = true> {
         id?: T;
       };
   content?: T;
+  schemaType?: T;
+  keywords?: T;
+  faq?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
   legacyHtml?: T;
   contentEdited?: T;
   editedInAdmin?: T;

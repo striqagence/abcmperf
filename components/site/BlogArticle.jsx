@@ -52,16 +52,26 @@ function AuthorAvatar({ author, cls }) {
   return <span className={cls} aria-hidden="true">{initials(author)}</span>;
 }
 
+// Types schema.org autorisés pour un article (piloté depuis le BO).
+const ARTICLE_TYPES = ["BlogPosting", "Article", "NewsArticle"];
+
 function buildJsonLd(post) {
   const url = SITE + `/${post.slug}/`;
   const img = post.cover ? abs(post.cover.src) : undefined;
+  const type = ARTICLE_TYPES.includes(post.schemaType) ? post.schemaType : "BlogPosting";
+  // Mots-clés : chaîne « a, b, c » du BO → tableau propre pour le JSON-LD.
+  const keywords = String(post.keywords || "")
+    .split(",")
+    .map((k) => k.trim())
+    .filter(Boolean);
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": type,
     "@id": url + "#article",
     headline: post.title,
     description: post.description || undefined,
     articleSection: post.category || undefined,
+    keywords: keywords.length ? keywords : undefined,
     image: img ? [img] : undefined,
     datePublished: post.date || undefined,
     dateModified: post.modified || post.date || undefined,
@@ -77,12 +87,34 @@ function buildJsonLd(post) {
   };
 }
 
+// Données structurées FAQPage (résultats enrichis « questions/réponses »).
+// Renvoie null tant qu'aucune question/réponse valide n'est renseignée.
+function buildFaqJsonLd(post) {
+  const faq = Array.isArray(post.faq) ? post.faq : [];
+  const items = faq
+    .filter((f) => f && f.question && f.answer)
+    .map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    }));
+  if (!items.length) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": SITE + `/${post.slug}/#faq`,
+    mainEntity: items,
+  };
+}
+
 export function BlogArticle({ post }) {
   const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
   const { html, toc } = buildToc(withBase(post.html || "", base));
   const hasToc = toc.length >= 2;
   const cover = post.cover ? { ...post.cover, src: withBase(post.cover.src, base) } : null;
   const jsonLd = buildJsonLd(post);
+  const faqJsonLd = buildFaqJsonLd(post);
+  const faq = faqJsonLd ? post.faq : null;
   const summary = Array.isArray(post.summary) ? post.summary : null;
   const dayPub = String(post.date || "").slice(0, 10);
   const dayMod = String(post.modified || "").slice(0, 10);
@@ -91,6 +123,9 @@ export function BlogArticle({ post }) {
   return (
     <article className="blog">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {faqJsonLd ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      ) : null}
 
       <header className="blog-hero on-dark" data-theme="dark">
         <div className="blog-hero__deco" aria-hidden="true">
@@ -148,6 +183,20 @@ export function BlogArticle({ post }) {
         ) : null}
 
         <div className="blog-content" dangerouslySetInnerHTML={{ __html: html }} />
+
+        {faq ? (
+          <section className="blog-faq" aria-label="Questions fréquentes">
+            <h2 className="blog-faq__title">Questions fréquentes</h2>
+            <div className="blog-faq__list">
+              {faq.map((f, i) => (
+                <details key={i} className="blog-faq__item">
+                  <summary className="blog-faq__q">{f.question}</summary>
+                  <div className="blog-faq__a">{f.answer}</div>
+                </details>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className="blog-author" aria-label="Auteur">
           <AuthorAvatar author={post.author} cls="blog-author__avatar" />

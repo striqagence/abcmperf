@@ -1146,6 +1146,18 @@
 .blog-author__name { font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg); color: var(--text); }
 .blog-author__bio { margin: var(--space-2) 0 0; font-size: var(--text-sm); line-height: 1.65; color: var(--text-muted); }
 
+/* ---- FAQ article (données structurées FAQPage) ---- */
+.blog-faq { margin-top: clamp(var(--space-10), 5vw, var(--space-12)); }
+.blog-faq__title { font-family: var(--font-display); font-weight: 800; font-size: var(--text-2xl); color: var(--text); margin: 0 0 var(--space-5); }
+.blog-faq__list { display: flex; flex-direction: column; gap: var(--space-3); }
+.blog-faq__item { border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface-inset); overflow: hidden; }
+.blog-faq__item[open] { border-color: color-mix(in srgb, var(--logo-magenta) 40%, var(--border)); }
+.blog-faq__q { cursor: pointer; list-style: none; padding: var(--space-4) var(--space-5); font-family: var(--font-display); font-weight: 700; font-size: var(--text-md); color: var(--text); display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.blog-faq__q::-webkit-details-marker { display: none; }
+.blog-faq__q::after { content: "+"; flex: none; font-size: var(--text-xl); line-height: 1; color: var(--logo-magenta); transition: transform 0.2s ease; }
+.blog-faq__item[open] .blog-faq__q::after { transform: rotate(45deg); }
+.blog-faq__a { padding: 0 var(--space-5) var(--space-5); font-size: var(--text-sm); line-height: 1.7; color: var(--text-muted); white-space: pre-line; }
+
 /* =========================================================================
    PORTFOLIO - listing (.pf-hub) + fiche (.pf-case)
    ========================================================================= */

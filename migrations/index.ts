@@ -5,6 +5,7 @@ import * as migration_20260720_130325_add_portfolio_collection from './20260720_
 import * as migration_20260721_093000_add_portfolio_case_fields from './20260721_093000_add_portfolio_case_fields';
 import * as migration_20260721_140000_add_portfolio_featured_fields from './20260721_140000_add_portfolio_featured_fields';
 import * as migration_20260930_120000_add_article_fields from './20260930_120000_add_article_fields';
+import * as migration_20260930_140000_add_article_structured_data from './20260930_140000_add_article_structured_data';
 
 export const migrations = [
   {
@@ -41,5 +42,10 @@ export const migrations = [
     up: migration_20260930_120000_add_article_fields.up,
     down: migration_20260930_120000_add_article_fields.down,
     name: '20260930_120000_add_article_fields',
+  },
+  {
+    up: migration_20260930_140000_add_article_structured_data.up,
+    down: migration_20260930_140000_add_article_structured_data.down,
+    name: '20260930_140000_add_article_structured_data',
   },
 ];

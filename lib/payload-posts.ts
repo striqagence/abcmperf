@@ -52,6 +52,13 @@ async function buildFullPost(doc: any) {
   const summary = Array.isArray(doc.summary)
     ? doc.summary.map((s: any) => s?.point).filter(Boolean)
     : []
+  // FAQ (données structurées FAQPage + affichage bas d'article) : on ne garde
+  // que les entrées avec question ET réponse renseignées.
+  const faq = Array.isArray(doc.faq)
+    ? doc.faq
+        .map((f: any) => ({ question: String(f?.question || '').trim(), answer: String(f?.answer || '').trim() }))
+        .filter((f: any) => f.question && f.answer)
+    : []
   return {
     slug: doc.slug,
     title: doc.title,
@@ -61,6 +68,9 @@ async function buildFullPost(doc: any) {
     category: doc.category || '',
     canonicalUrl: doc.canonicalUrl || '',
     noindex: Boolean(doc.noindex),
+    schemaType: doc.schemaType || 'BlogPosting',
+    keywords: doc.keywords || '',
+    faq,
     date: postDate(doc),
     modified: postModified(doc),
     cover: coverFrom(doc),

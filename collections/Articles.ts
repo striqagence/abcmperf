@@ -229,6 +229,74 @@ export const Articles: CollectionConfig = {
       admin: { description: 'Corps de l’article (titres H2/H3, paragraphes, listes, images, liens, citations…). C’est ce texte qui est publié et indexé.' },
       editor: contentEditor,
     },
+
+    // ───────── Données structurées (schema.org / résultats enrichis) ─────────
+    // Champs VISIBLES pour piloter le JSON-LD envoyé à Google : type de contenu,
+    // mots-clés et FAQ (qui génère un bloc FAQPage → résultats enrichis).
+    {
+      type: 'collapsible',
+      label: 'Données structurées (SEO avancé)',
+      admin: {
+        initCollapsed: true,
+        description:
+          'Contrôle les données structurées (schema.org) envoyées à Google. Un article standard n’a rien à régler ici : le type « Article de blog » et les infos (titre, image, dates, auteur, rubrique) sont générés automatiquement à partir des champs ci-dessus. Utilisez la FAQ pour obtenir des résultats enrichis « questions/réponses » dans Google.',
+      },
+      fields: [
+        {
+          name: 'schemaType',
+          type: 'select',
+          label: 'Type de contenu (schema.org)',
+          defaultValue: 'BlogPosting',
+          options: [
+            { label: 'Article de blog (BlogPosting)', value: 'BlogPosting' },
+            { label: 'Article (Article)', value: 'Article' },
+            { label: 'Actualité / presse (NewsArticle)', value: 'NewsArticle' },
+          ],
+          admin: {
+            description:
+              'Définit le « @type » des données structurées. Laisser « Article de blog » dans la plupart des cas.',
+          },
+        },
+        {
+          name: 'keywords',
+          type: 'text',
+          label: 'Mots-clés (keywords)',
+          admin: {
+            description:
+              'Mots-clés séparés par des virgules (ex. « SEO, IA, référencement »). Ajoutés aux données structurées. Optionnel.',
+          },
+        },
+        {
+          name: 'faq',
+          type: 'array',
+          label: 'FAQ (résultats enrichis)',
+          labels: { singular: 'question', plural: 'questions' },
+          admin: {
+            description:
+              'Questions/réponses affichées en bas d’article ET envoyées à Google en données structurées (FAQPage), pour un affichage enrichi dans les résultats de recherche. Laisser vide si l’article n’a pas de FAQ.',
+          },
+          fields: [
+            {
+              name: 'question',
+              type: 'text',
+              required: true,
+              label: 'Question',
+            },
+            {
+              name: 'answer',
+              type: 'textarea',
+              required: true,
+              label: 'Réponse',
+              admin: {
+                description:
+                  'Réponse en texte simple (les données structurées n’acceptent pas la mise en forme).',
+              },
+            },
+          ],
+        },
+      ],
+    },
+
     // HTML original importé : conservé pour référence et repli, mais rangé dans
     // un menu replié fermé par défaut (retiré de la sidebar).
     {
