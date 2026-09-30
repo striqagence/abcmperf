@@ -62,7 +62,8 @@ export async function generateMetadata({ params }) {
     return {
       title: post.seoTitle ? { absolute: post.seoTitle } : post.title,
       description: post.description || undefined,
-      alternates: { canonical: `/${slug}/` },
+      alternates: { canonical: post.canonicalUrl || `/${slug}/` },
+      robots: post.noindex ? { index: false, follow: false } : undefined,
       openGraph: {
         type: "article",
         title: post.seoTitle || post.title,

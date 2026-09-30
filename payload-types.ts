@@ -208,7 +208,7 @@ export interface Page {
   createdAt: string;
 }
 /**
- * Articles de blog.
+ * Articles de blog. Renseignez le titre, le contenu et l’image à la une, puis le SEO (balise Title, meta description). Le slug (URL) se génère automatiquement depuis le titre. « Publier » met l’article en ligne : la page, les données structurées (Article) et le sitemap se mettent à jour tout seuls.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles".
@@ -224,21 +224,39 @@ export interface Article {
    */
   slug: string;
   author?: string | null;
+  /**
+   * Ex. « SEO », « IA », « Réseaux sociaux ». Affichée sur l’article et utilisée dans les données structurées (articleSection). Optionnel.
+   */
+  category?: string | null;
   publishedDate?: string | null;
+  /**
+   * Visuel principal de l’article. Sert aussi d’aperçu au partage sur les réseaux (OpenGraph). Format paysage recommandé, idéalement 1200×630 px.
+   */
   cover?: (number | null) | Media;
   /**
-   * Prioritaire sur le alt du média. Pour le SEO.
+   * Décrit l’image pour l’accessibilité et le SEO. Prioritaire sur le alt du média.
    */
   coverAlt?: string | null;
   /**
-   * Résumé court affiché dans les listes d’articles.
+   * Résumé court affiché dans les listes d’articles. Sert aussi de meta description si celle-ci est vide.
    */
   excerpt?: string | null;
   /**
-   * Si vide, le titre de l’article est utilisé.
+   * Titre affiché dans Google (~50-60 caractères). « | ABCM » est ajouté automatiquement. Si vide, le titre de l’article est utilisé.
    */
   seoTitle?: string | null;
+  /**
+   * Résumé affiché sous le titre dans Google (~150-160 caractères). Si vide, l’extrait est utilisé.
+   */
   metaDescription?: string | null;
+  /**
+   * À remplir seulement si le contenu est publié en priorité ailleurs. Laisser vide dans 99 % des cas : l’URL de l’article fait foi.
+   */
+  canonicalUrl?: string | null;
+  /**
+   * Coché : l’article passe en noindex et sort du sitemap (utile pour un contenu de service, une page légère…). Laisser décoché pour un article public normal.
+   */
+  noindex?: boolean | null;
   /**
    * Encart « En bref » (liste de points clés, en tête d’article).
    */
@@ -248,6 +266,9 @@ export interface Article {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Corps de l’article (titres H2/H3, paragraphes, listes, images, liens, citations…). C’est ce texte qui est publié et indexé.
+   */
   content?: {
     root: {
       type: string;
@@ -416,6 +437,7 @@ export interface Portfolio {
           | 'agence-web-strasbourg'
           | 'creation-site-ecommerce'
           | 'maintenance-site-web'
+          | 'agence-payload'
           | 'referencement-strasbourg'
           | 'referencement-ia-geo'
           | 'audit-referencement'
@@ -679,12 +701,15 @@ export interface ArticlesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   author?: T;
+  category?: T;
   publishedDate?: T;
   cover?: T;
   coverAlt?: T;
   excerpt?: T;
   seoTitle?: T;
   metaDescription?: T;
+  canonicalUrl?: T;
+  noindex?: T;
   summary?:
     | T
     | {

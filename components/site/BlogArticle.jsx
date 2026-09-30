@@ -61,6 +61,7 @@ function buildJsonLd(post) {
     "@id": url + "#article",
     headline: post.title,
     description: post.description || undefined,
+    articleSection: post.category || undefined,
     image: img ? [img] : undefined,
     datePublished: post.date || undefined,
     dateModified: post.modified || post.date || undefined,
@@ -104,6 +105,9 @@ export function BlogArticle({ post }) {
             <span aria-hidden="true">/</span>
             <span className="blog-crumbs__current">{post.title}</span>
           </nav>
+          {post.category ? (
+            <span className="blog-hero__cat"><Icon name="sparkles" size={14} /> {post.category}</span>
+          ) : null}
           <h1 className="blog-hero__title">{post.title}</h1>
           <div className="blog-hero__meta">
             {post.author ? (

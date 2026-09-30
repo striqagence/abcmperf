@@ -1006,6 +1006,8 @@
 .blog-crumbs a:hover { color: #fff; }
 .blog-crumbs__current { color: var(--neutral-400); max-width: 46ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .blog-hero__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.9rem, 1.2rem + 2.7vw, 3.1rem); line-height: 1.08; letter-spacing: var(--tracking-tight); margin: 0; color: #fff; max-width: 24ch; }
+.blog-hero__cat { display: inline-flex; align-items: center; gap: 0.45em; margin: 0 0 var(--space-4); font-family: var(--font-mono); font-size: var(--text-2xs); font-weight: 700; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: #fff; background: color-mix(in srgb, var(--logo-magenta) 82%, transparent); padding: 0.4em 0.9em; border-radius: var(--radius-pill); }
+.blog-hero__cat .abcm-ic { color: #fff; }
 .blog-hero__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-5); margin: var(--space-5) 0 0; font-size: var(--text-sm); font-weight: 600; color: var(--neutral-200); }
 .blog-hero__meta > span { display: inline-flex; align-items: center; gap: 0.5em; }
 .blog-hero__meta .abcm-ic { color: var(--logo-yellow); }

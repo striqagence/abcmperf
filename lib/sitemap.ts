@@ -91,12 +91,14 @@ async function formationsEntries(): Promise<Entry[]> {
 // « Articles » = articles de blog publiés (Payload, repli fichiers).
 async function articlesEntries(): Promise<Entry[]> {
   const posts = (await getAllPostsFromPayload()) || getAllPosts()
-  return (posts || []).map((post: any) => ({
-    path: `/${post.slug}/`,
-    lastmod: post.modified || post.date || undefined,
-    changefreq: 'monthly',
-    priority: 0.6,
-  }))
+  return (posts || [])
+    .filter((post: any) => !post.noindex)
+    .map((post: any) => ({
+      path: `/${post.slug}/`,
+      lastmod: post.modified || post.date || undefined,
+      changefreq: 'monthly',
+      priority: 0.6,
+    }))
 }
 
 // « Portfolio » = page listing + fiches références (Payload + fichiers, hors

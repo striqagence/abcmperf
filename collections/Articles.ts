@@ -1,6 +1,18 @@
 import type { CollectionConfig } from 'payload'
 import { contentEditor } from '@/lib/payload/editor'
 
+// Slug « propre » à partir d'un texte : sans accents, minuscules, tirets.
+function slugify(input?: string): string {
+  return String(input || '')
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/['’]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 96)
+}
+
 // Revalide la page publique d'un article (ISR) après publication / suppression.
 // Ne fait rien pendant l'import (context.seeding) ni hors contexte Next.
 async function revalidateArticle(slug?: string, context?: any) {
@@ -22,6 +34,16 @@ export const Articles: CollectionConfig = {
   slug: 'articles',
   labels: { singular: 'Article', plural: 'Articles' },
   hooks: {
+    // Slug automatique : généré depuis le titre s'il est laissé vide, et
+    // toujours normalisé (accents, espaces, majuscules) pour une URL propre.
+    beforeValidate: [
+      ({ data }) => {
+        if (!data) return data
+        if (!data.slug && data.title) data.slug = slugify(data.title)
+        else if (data.slug) data.slug = slugify(data.slug)
+        return data
+      },
+    ],
     beforeChange: [
       ({ data, originalDoc, req }) => {
         // L'import (seeding) ne marque jamais un article comme édité : on
@@ -36,6 +58,11 @@ export const Articles: CollectionConfig = {
           const changed =
             JSON.stringify(data?.content ?? null) !== JSON.stringify(originalDoc?.content ?? null)
           if (changed) data.contentEdited = true
+          // À la première mise en ligne sans date renseignée : on fige la date
+          // de publication (datePublished des données structurées + tri).
+          if (!data.publishedDate && data._status === 'published') {
+            data.publishedDate = new Date().toISOString()
+          }
         }
         return data
       },
@@ -55,7 +82,8 @@ export const Articles: CollectionConfig = {
     useAsTitle: 'title',
     group: 'Contenu',
     defaultColumns: ['title', 'slug', 'publishedDate', '_status', 'updatedAt'],
-    description: 'Articles de blog.',
+    description:
+      'Articles de blog. Renseignez le titre, le contenu et l’image à la une, puis le SEO (balise Title, meta description). Le slug (URL) se génère automatiquement depuis le titre. « Publier » met l’article en ligne : la page, les données structurées (Article) et le sitemap se mettent à jour tout seuls.',
     listSearchableFields: ['title', 'slug'],
     components: {
       edit: {
@@ -107,6 +135,15 @@ export const Articles: CollectionConfig = {
           defaultValue: 'ABCM',
         },
         {
+          name: 'category',
+          type: 'text',
+          label: 'Rubrique / catégorie',
+          admin: {
+            description:
+              'Ex. « SEO », « IA », « Réseaux sociaux ». Affichée sur l’article et utilisée dans les données structurées (articleSection). Optionnel.',
+          },
+        },
+        {
           name: 'publishedDate',
           type: 'date',
           label: 'Date de publication',
@@ -117,18 +154,22 @@ export const Articles: CollectionConfig = {
           type: 'upload',
           relationTo: 'media',
           label: 'Image à la une',
+          admin: {
+            description:
+              'Visuel principal de l’article. Sert aussi d’aperçu au partage sur les réseaux (OpenGraph). Format paysage recommandé, idéalement 1200×630 px.',
+          },
         },
         {
           name: 'coverAlt',
           type: 'text',
           label: 'Texte alternatif (alt)',
-          admin: { description: 'Prioritaire sur le alt du média. Pour le SEO.' },
+          admin: { description: 'Décrit l’image pour l’accessibilité et le SEO. Prioritaire sur le alt du média.' },
         },
         {
           name: 'excerpt',
           type: 'textarea',
           label: 'Extrait',
-          admin: { description: 'Résumé court affiché dans les listes d’articles.' },
+          admin: { description: 'Résumé court affiché dans les listes d’articles. Sert aussi de meta description si celle-ci est vide.' },
         },
       ],
     },
@@ -142,9 +183,33 @@ export const Articles: CollectionConfig = {
           name: 'seoTitle',
           type: 'text',
           label: 'Balise Title',
-          admin: { description: 'Si vide, le titre de l’article est utilisé.' },
+          admin: { description: 'Titre affiché dans Google (~50-60 caractères). « | ABCM » est ajouté automatiquement. Si vide, le titre de l’article est utilisé.' },
         },
-        { name: 'metaDescription', type: 'textarea', label: 'Meta description' },
+        {
+          name: 'metaDescription',
+          type: 'textarea',
+          label: 'Meta description',
+          admin: { description: 'Résumé affiché sous le titre dans Google (~150-160 caractères). Si vide, l’extrait est utilisé.' },
+        },
+        {
+          name: 'canonicalUrl',
+          type: 'text',
+          label: 'URL canonique (avancé)',
+          admin: {
+            description:
+              'À remplir seulement si le contenu est publié en priorité ailleurs. Laisser vide dans 99 % des cas : l’URL de l’article fait foi.',
+          },
+        },
+        {
+          name: 'noindex',
+          type: 'checkbox',
+          defaultValue: false,
+          label: 'Ne pas indexer (noindex)',
+          admin: {
+            description:
+              'Coché : l’article passe en noindex et sort du sitemap (utile pour un contenu de service, une page légère…). Laisser décoché pour un article public normal.',
+          },
+        },
       ],
     },
 
@@ -161,6 +226,7 @@ export const Articles: CollectionConfig = {
       name: 'content',
       type: 'richText',
       label: 'Contenu',
+      admin: { description: 'Corps de l’article (titres H2/H3, paragraphes, listes, images, liens, citations…). C’est ce texte qui est publié et indexé.' },
       editor: contentEditor,
     },
     // HTML original importé : conservé pour référence et repli, mais rangé dans
