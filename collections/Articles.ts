@@ -83,7 +83,7 @@ export const Articles: CollectionConfig = {
     group: 'Contenu',
     defaultColumns: ['title', 'slug', 'publishedDate', '_status', 'updatedAt'],
     description:
-      'Articles de blog. Renseignez le titre, le contenu et l’image à la une, puis le SEO (balise Title, meta description). Le slug (URL) se génère automatiquement depuis le titre. « Publier » met l’article en ligne : la page, les données structurées (Article) et le sitemap se mettent à jour tout seuls.',
+      'Articles de blog. Renseignez le titre, le contenu et l’image à la une, puis le SEO (balise Title, meta description). Le slug (URL) se génère automatiquement depuis le titre. « Publier » met l’article en ligne : la page, les données structurées (Article) et le sitemap se mettent à jour tout seuls. Pour PROGRAMMER un article, choisissez une date de publication future (colonne de droite) avant de publier : il apparaîtra tout seul à l’heure prévue.',
     listSearchableFields: ['title', 'slug'],
     components: {
       edit: {
@@ -146,8 +146,12 @@ export const Articles: CollectionConfig = {
         {
           name: 'publishedDate',
           type: 'date',
-          label: 'Date de publication',
-          admin: { date: { pickerAppearance: 'dayAndTime' } },
+          label: 'Date de publication (programmation)',
+          admin: {
+            date: { pickerAppearance: 'dayAndTime' },
+            description:
+              'Laisser vide = publier tout de suite (la date du jour est enregistrée). Choisir une date/heure FUTURE puis cliquer « Publier » = article PROGRAMMÉ : il reste invisible sur le site jusqu’à cette date, puis s’affiche tout seul (au plus tard 5 min après). Une date passée sert à antidater un article (SEO).',
+          },
         },
         {
           name: 'cover',

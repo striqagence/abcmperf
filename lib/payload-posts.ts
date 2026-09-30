@@ -26,6 +26,16 @@ function coverFrom(doc: any): { src: string; alt: string } | null {
 function postDate(doc: any): string | undefined {
   return doc.publishedDate || doc.createdAt || undefined
 }
+// Programmation : un article dont la date de publication est dans le FUTUR est
+// « programmé » et reste invisible publiquement jusqu'à l'heure dite (modèle
+// WordPress). Il apparaît tout seul dès que la date est atteinte (ISR : la page
+// et la liste se régénèrent au plus tard toutes les 5 min).
+function isScheduledInFuture(doc: any): boolean {
+  const d = doc?.publishedDate
+  if (!d) return false
+  const t = new Date(d).getTime()
+  return Number.isFinite(t) && t > Date.now()
+}
 // Date de modification : la date d'origine tant que l'article n'a pas été édité
 // dans l'admin ; sinon la date de dernière sauvegarde Payload.
 function postModified(doc: any): string | undefined {
@@ -96,6 +106,8 @@ export const getPostFromPayload = cache(async (slug: string) => {
   })
   const doc: any = res.docs?.[0]
   if (!doc) return null
+  // Article programmé (date future) : pas encore public → 404 jusqu'à l'heure dite.
+  if (isScheduledInFuture(doc)) return null
   return buildFullPost(doc)
 })
 
@@ -113,16 +125,20 @@ export const getAllPostsFromPayload = cache(async () => {
       draft: false,
       sort: '-publishedDate',
     })
-    const posts = (res.docs || []).map((doc: any) => ({
-      slug: doc.slug,
-      title: doc.title,
-      description: doc.metaDescription || doc.excerpt || '',
-      category: doc.category || '',
-      noindex: Boolean(doc.noindex),
-      date: postDate(doc),
-      modified: postModified(doc),
-      cover: coverFrom(doc),
-    }))
+    const posts = (res.docs || [])
+      // On exclut les articles programmés (date de publication future) : ils
+      // n'apparaissent ni dans la liste, ni sur la home, ni dans le sitemap.
+      .filter((doc: any) => !isScheduledInFuture(doc))
+      .map((doc: any) => ({
+        slug: doc.slug,
+        title: doc.title,
+        description: doc.metaDescription || doc.excerpt || '',
+        category: doc.category || '',
+        noindex: Boolean(doc.noindex),
+        date: postDate(doc),
+        modified: postModified(doc),
+        cover: coverFrom(doc),
+      }))
     // Tri par date décroissante (publishedDate manquante → repli createdAt).
     return posts.sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')))
   } catch {

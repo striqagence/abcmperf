@@ -208,7 +208,7 @@ export interface Page {
   createdAt: string;
 }
 /**
- * Articles de blog. Renseignez le titre, le contenu et l’image à la une, puis le SEO (balise Title, meta description). Le slug (URL) se génère automatiquement depuis le titre. « Publier » met l’article en ligne : la page, les données structurées (Article) et le sitemap se mettent à jour tout seuls.
+ * Articles de blog. Renseignez le titre, le contenu et l’image à la une, puis le SEO (balise Title, meta description). Le slug (URL) se génère automatiquement depuis le titre. « Publier » met l’article en ligne : la page, les données structurées (Article) et le sitemap se mettent à jour tout seuls. Pour PROGRAMMER un article, choisissez une date de publication future (colonne de droite) avant de publier : il apparaîtra tout seul à l’heure prévue.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "articles".
@@ -228,6 +228,9 @@ export interface Article {
    * Ex. « SEO », « IA », « Réseaux sociaux ». Affichée sur l’article et utilisée dans les données structurées (articleSection). Optionnel.
    */
   category?: string | null;
+  /**
+   * Laisser vide = publier tout de suite (la date du jour est enregistrée). Choisir une date/heure FUTURE puis cliquer « Publier » = article PROGRAMMÉ : il reste invisible sur le site jusqu’à cette date, puis s’affiche tout seul (au plus tard 5 min après). Une date passée sert à antidater un article (SEO).
+   */
   publishedDate?: string | null;
   /**
    * Visuel principal de l’article. Sert aussi d’aperçu au partage sur les réseaux (OpenGraph). Format paysage recommandé, idéalement 1200×630 px.
